@@ -33,6 +33,7 @@ public class Monster_Spawner : MonoBehaviour{
         Monster monster = obj.GetComponent<Monster>();
         
         monster.colour = colour_enum;
+        monster.transform.position = (Vector2)this.transform.position + new Vector2(-2,4);
         //monster.monster_position = spawner_position + new Vector2(1,1); //Eventually make this a semi random thing 
 
     }

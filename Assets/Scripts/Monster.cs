@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,10 +24,20 @@ public class Monster : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
-        
+        //Debug.Log("in Update");
+        if ((Vector2)this.transform.position != player_position){
+            Move();
+            //Debug.Log("in movement");
+        }
+        else{
+            //do something with player damage
+            //maybe leave the screen
+            Destroy(this.gameObject);
+            Debug.Log("in death");
+        }
     }
 
     void Move(){
-        
+        this.transform.position = Vector2.MoveTowards((Vector2)this.transform.position, player_position, speed);
     }
 }
