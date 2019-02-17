@@ -7,7 +7,7 @@ using UnityEngine;
 public class Music
 {
     // instrument -> (time, note)
-    private List<List<Tuple<float, Note>>> notes;
+    private List<List<Note>> notes;
     
     public int CountInstruments { get { return notes.Count; } }
     
@@ -23,12 +23,15 @@ public class Music
     ///   
     ///   The file should be sorted by Time.
     /// </summary>
-    public Music(IEnumerable<string> instrumentNotes) {
-        notes = new List<List<Tuple<float, Note>>>();
+    public Music(IEnumerable<string> instrumentNotes, float initialDelay) {
+        notes = new List<List<Note>>();
+        
+        // put id for each note.
+        int id = 0;
 
         // read each instrument
         foreach (string str in instrumentNotes) {
-            notes.Add(new List<Tuple<float, Note>>());
+            notes.Add(new List<Note>());
 
             StringReader input = new StringReader(str);
             string line;
@@ -51,7 +54,7 @@ public class Music
                     continue;
                 }
 
-                Note note = Note.UP;
+                Note.Dir note = Note.Dir.UP;
                 float time;
 
                 if (!Single.TryParse(split[1], out time)) {
@@ -60,21 +63,51 @@ public class Music
                 }
 
                 switch (split[0]) {
-                    case "U": note = Note.UP; break;
-                    case "D": note = Note.DOWN; break;
-                    case "L": note = Note.LEFT; break;
-                    case "R": note = Note.RIGHT; break;
+                    case "U": note = Note.Dir.UP; break;
+                    case "D": note = Note.Dir.DOWN; break;
+                    case "L": note = Note.Dir.LEFT; break;
+                    case "R": note = Note.Dir.RIGHT; break;
                     default: Debug.LogError("Invalid note in music: " + line); continue;
                 }
 
-                notes[notes.Count - 1].Add(new Tuple<float,Note>(time * speed, note));
+                notes[notes.Count - 1].Add(new Note(id, notes.Count - 1, note, initialDelay + time * speed));
+                ++id;
             }
         }
     }
 
-    public IEnumerable<Tuple<float, Note>> NoteIterator(int instrument) {
+    public IEnumerable<Note> NoteIteratable(int instrument) {
         return notes[instrument];
     }
 }
 
-public enum Note { UP, DOWN, LEFT, RIGHT }
+public class Note {
+    public enum Dir { UP, DOWN, LEFT, RIGHT }
+    public int id { get; private set; }
+    public int instrument { get; private set; }
+    public Dir dir { get; private set; }
+    public float time { get; private set; }
+    
+    public Note(int id, int instrument, Dir dir, float time) {
+        this.id = id;
+        this.instrument = instrument;
+        this.dir = dir;
+        this.time = time;
+    }
+
+    public override int GetHashCode() {
+        return id;
+    }
+
+    public override bool Equals(object other) {
+        if (other is Note) {
+            Note o = (Note)other;
+            return id == o.id;
+        }
+        return false;
+    }
+    
+    public override string ToString() {
+        return "{ id: " + id + ", instrument: " + instrument + ", dir: " + dir + ", time: " + time + " }";
+    }
+}
