@@ -1,13 +1,17 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-[RequireComponent(typeof(Text))]
+[RequireComponent(typeof(Image))]
 public class NoteObject : MonoBehaviour {
     public Track track;
+    public Sprite spriteUp;
+    public Sprite spriteDown;
+    public Sprite spriteLeft;
+    public Sprite spriteRight;
     
-    private string text {
-        get { return GetComponent<Text>().text; }
-        set { GetComponent<Text>().text = value; }
+    private Sprite image {
+        get { return GetComponent<Image>().sprite; }
+        set { GetComponent<Image>().sprite = value; }
     }
     private Note _note;
     public Note note {
@@ -15,10 +19,10 @@ public class NoteObject : MonoBehaviour {
         set {
             _note = value;
             switch (_note.dir) {
-                case Note.Dir.UP: text = char.ConvertFromUtf32(0x2191); break;
-                case Note.Dir.DOWN: text = char.ConvertFromUtf32(0x2193); break;
-                case Note.Dir.LEFT: text = char.ConvertFromUtf32(0x2190); break;
-                case Note.Dir.RIGHT: text = char.ConvertFromUtf32(0x2192); break;
+                case Note.Dir.UP: image = spriteUp; break;
+                case Note.Dir.DOWN: image = spriteDown; break;
+                case Note.Dir.LEFT: image = spriteLeft; break;
+                case Note.Dir.RIGHT: image = spriteRight; break;
             }
         }
     }

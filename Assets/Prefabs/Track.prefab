@@ -36,8 +36,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.75}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -10}
-  m_SizeDelta: {x: -40, y: -20}
+  m_AnchoredPosition: {x: 0, y: -5}
+  m_SizeDelta: {x: -20, y: -10}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &6992588039756804630
 CanvasRenderer:
@@ -91,7 +91,7 @@ MonoBehaviour:
   musicTexts:
   - {fileID: 4900000, guid: b0f2df91b933dbd45847d5541e5323ea, type: 3}
   - {fileID: 4900000, guid: 234abdd067cf4954aa108ec5c1732329, type: 3}
-  windowWidth: 10
+  windowWidth: 5
   timeBuffer: 0.5
   initialDelay: 5
 --- !u!114 &6992588039756804629
