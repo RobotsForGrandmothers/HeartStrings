@@ -24,16 +24,13 @@ public class Monster : MonoBehaviour
 
     // Update is called once per frame
     void Update(){
-        //Debug.Log("in Update");
         if ((Vector2)this.transform.position != player_position){
             Move();
-            //Debug.Log("in movement");
         }
         else{
             //do something with player damage
             //maybe leave the screen
             Destroy(this.gameObject);
-            Debug.Log("in death");
         }
     }
 
