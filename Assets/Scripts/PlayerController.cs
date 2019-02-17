@@ -14,15 +14,21 @@ public class PlayerController : MonoBehaviour
     private bool direction;
     private int healthPoints;
 
+    // Have the sprites for the bard - the bard starts off facing right because direction is true
     private Sprite bardLeft;
     private Sprite bardRight;
     private SpriteRenderer bardRenderer;
+
+    // Assign the wave emitters
+    public GameObject leftWaveEmitter;
+    public GameObject rightWaveEmitter;
 
     // Start is called before the first frame update
     void Start()
     {
         healthPoints = 100;
         direction = true;
+
         bardRenderer = gameObject.GetComponent<SpriteRenderer>();
         bardLeft = Resources.Load<Sprite>("Sprites/BardLeft");
         bardRight = Resources.Load<Sprite>("Sprites/BardRight");
@@ -83,10 +89,10 @@ public class PlayerController : MonoBehaviour
         // True spawns wave on right, otherwise on left
         if (direction)
         {
-
+            rightWaveEmitter.GetComponent<ParticleSystem>().Play();
         } else
         {
-
+            leftWaveEmitter.GetComponent<ParticleSystem>().Play();
         }
     }
 
