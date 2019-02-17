@@ -65,6 +65,12 @@ public class PlayerController : MonoBehaviour
         {
 
         }
+
+        // TEMP BUTTON PRESS - assume callback for spawn wave later
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            SpawnWave();
+        }
     }
 
     void ChangeInstrument()
