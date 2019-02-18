@@ -19,9 +19,8 @@ public class PlayerController : MonoBehaviour
     private Sprite bardRight;
     private SpriteRenderer bardRenderer;
 
-    // Assign the wave emitters
-    public GameObject leftWaveEmitter;
-    public GameObject rightWaveEmitter;
+    // Assign the wave object
+    public GameObject wave;
 
     // Start is called before the first frame update
     void Start()
@@ -86,14 +85,9 @@ public class PlayerController : MonoBehaviour
 
     void SpawnWave()
     {
-        // True spawns wave on right, otherwise on left
-        if (direction)
-        {
-            rightWaveEmitter.GetComponent<ParticleSystem>().Play();
-        } else
-        {
-            leftWaveEmitter.GetComponent<ParticleSystem>().Play();
-        }
+        GameObject projectile = Instantiate(wave, transform.position, Quaternion.identity) as GameObject;
+        projectile.GetComponent<Wave>().SetDirection(direction);
+        projectile.GetComponent<Wave>().SetColor(1);
     }
 
     // The player is taking damage :C 
