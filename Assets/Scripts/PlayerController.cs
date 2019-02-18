@@ -133,6 +133,11 @@ public class PlayerController : MonoBehaviour
 				SpawnWave();
 			}
         }
+        // DEVELOPER CHEAT KEY
+        if (Input.GetKeyDown("t"))
+        {
+            SpawnWave();
+        }
     }
 
     void SpawnWave()
