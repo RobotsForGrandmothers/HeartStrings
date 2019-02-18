@@ -5,6 +5,7 @@ using UnityEngine;
 public class Wave : MonoBehaviour
 {
     private int damage = 1;
+    private int waveColor = 0;
     public AnimationCurve scaleCurve;
     public Gradient gradientCurve;
     float creationTime;
@@ -41,6 +42,7 @@ public class Wave : MonoBehaviour
 
     public void SetColor(int color)
     {
+        waveColor = color;
         Color newColor;
         switch (color)
         {
@@ -55,6 +57,11 @@ public class Wave : MonoBehaviour
         colorKeys[1].color = newColor;
 
         gradientCurve.SetKeys(colorKeys, gradientCurve.alphaKeys);
+    }
+
+    public int GetColor()
+    {
+        return waveColor;
     }
 
     public void SetDamage(int damage)

@@ -76,9 +76,13 @@ public class Track : MonoBehaviour {
     }
     
     public bool TryPlayNote(int instrument, Note.Dir dir) {
+		if (windowNotes[instrument].Count == 0) return false;
+
         Note latest = windowNotes[instrument].Peek();
-        if (Mathf.Abs(latest.time - Time.time) < timeBuffer) {
+
+        if (Mathf.Abs(latest.time - Time.time) <= timeBuffer) {
             windowNotes[instrument].Dequeue();
+
             if (latest.dir == dir) {
                 OnPlayNote(latest);
                 return true;
@@ -87,6 +91,7 @@ public class Track : MonoBehaviour {
                 return false;
             }
         } else {
+			Debug.Log("No note close to time. latest: " + latest + " at time " + Time.time);
             return false;
         }
     }
