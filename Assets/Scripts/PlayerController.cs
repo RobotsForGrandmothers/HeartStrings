@@ -25,6 +25,10 @@ public class PlayerController : MonoBehaviour
             OnInstrumentSwitch(_instrument);
         }
     }
+    private Transform health_bar;
+    public int max_health = 10;
+    private int combo = 0;
+    
 
     // Animations
     private Animator animator;
@@ -55,6 +59,7 @@ public class PlayerController : MonoBehaviour
         instrument = 0;
         healthPoints = 100;
         direction = true;
+        health_bar = this.transform.GetChild(0);
 
         animator = gameObject.GetComponent<Animator>();
         animatorControllers = new List<RuntimeAnimatorController>();
@@ -147,22 +152,41 @@ public class PlayerController : MonoBehaviour
 
     void SpawnWave()
     {
+        combo += 1;
         GameObject projectile = Instantiate(wave, transform.position, Quaternion.identity) as GameObject;
         projectile.GetComponent<Wave>().SetDirection(direction);
-        projectile.GetComponent<Wave>().SetColor(instrument);
+        projectile.GetComponent<Wave>().SetColor(instrument, combo);
+        projectile.GetComponent<Wave>().SetDamage(combo);
     }
 
     // The player is taking damage :C 
     void TakeDamage (int damage)
     {
         healthPoints -= damage;
-    }
+        float hp_decr_factor = -0.1f * damage / max_health;
+        Vector3 temp_hp_scale = health_bar.localScale + new Vector3(hp_decr_factor,0,0);
+        if (temp_hp_scale.x >= 0){
+            health_bar.localScale = temp_hp_scale;
+        }
+        else if (temp_hp_scale.x < 0){
+            health_bar.localScale = new Vector3(0,0,0);
+        }
+   }
 
     void OnInstrumentSwitch(int instrument) {
         EventHandler<InstrumentEvent> handler = InstrumentSwitch;
         if (handler != null) handler(this, new InstrumentEvent(instrument));
+        this.combo = 0;
         Debug.Log("Player switched instrument to " + instrument);
     }
+
+    void OnTriggerEnter2D(Collider2D monster){
+        if (monster.gameObject.CompareTag("Monster")){
+            Monster obj = monster.gameObject.GetComponent<Monster>();
+            TakeDamage(obj.playerDamage);
+        }
+    
+    } 
 }
 
 public class InstrumentEvent : EventArgs {

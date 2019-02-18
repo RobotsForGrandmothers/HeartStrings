@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 645197051210505508}
   m_Layer: 0
   m_Name: Monster Blue
-  m_TagString: Untagged
+  m_TagString: Monster
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -142,9 +142,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb14bf7acfa94844cacdc775f5a553d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_health: 10
-  speed: 4
+  max_health: 2
+  speed: 3
   monster_position: {x: 0, y: 0}
+  wait_time: 2
+  playerDamage: 1
   normalAnimationController: {fileID: 9100000, guid: e0a5573bb8217ad4497d85256505b41f,
     type: 2}
   deathAnimationController: {fileID: 9100000, guid: ef62f5774d8b8484d874a6398e83d7a2,
