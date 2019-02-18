@@ -241,7 +241,7 @@ GameObject:
   - component: {fileID: 159530023}
   - component: {fileID: 159530022}
   m_Layer: 5
-  m_Name: Heart Strings
+  m_Name: Game Over
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -286,7 +286,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Texture: {fileID: 2800000, guid: e852ce12ebf67ed4c9359da49f7fb597, type: 3}
+  m_Texture: {fileID: 2800000, guid: d23f23a7852ee3745b5f5efc95e0a2c8, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
