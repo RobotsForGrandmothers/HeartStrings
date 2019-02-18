@@ -184,3 +184,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notePrefab: {fileID: 7039469803304294182, guid: f074f4fd6093e5c43886691cee352be8,
     type: 3}
+  playBoundsPrefab: {fileID: 867291929727139976, guid: 2b72e3fd3b8fe824f8c5cde3292142a7,
+    type: 3}
+  player: {fileID: 0}

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 [RequireComponent(typeof(Image))]
 public class NoteObject : MonoBehaviour {
-    public Track track;
+    public TrackRenderer trackRenderer;
     public Sprite spriteUp;
     public Sprite spriteDown;
     public Sprite spriteLeft;
@@ -39,11 +39,8 @@ public class NoteObject : MonoBehaviour {
     }
     
     void Update() {
-        Rect parent = this.transform.parent.GetComponent<RectTransform>().rect;
-        RectTransform rect = this.GetComponent<RectTransform>();
-        
         Vector3 pos = this.transform.localPosition;
-        pos.x = parent.width / 2 + parent.width * (Time.time - _note.time) / track.windowWidth;
+        pos.x = trackRenderer.XForDeltaTime(Time.time - _note.time);
         this.transform.localPosition = pos;
     }
 }
