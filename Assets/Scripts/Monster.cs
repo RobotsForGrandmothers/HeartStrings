@@ -8,7 +8,6 @@ public class Monster : MonoBehaviour
 
     public int max_health;
     public float speed;
-    public Vector2 monster_position;
     public float wait_time = 2;
     public int playerDamage = 2;
     

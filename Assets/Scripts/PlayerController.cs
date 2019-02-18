@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Direction/Face
 // Health
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         instrument = 0;
-        healthPoints = 100;
+        healthPoints = 10;
         direction = true;
         health_bar = this.transform.GetChild(0);
 
@@ -79,8 +80,7 @@ public class PlayerController : MonoBehaviour
     {
         if (healthPoints <= 0)
         {
-            // Go to end game screen
-            UIController.ShowEndGameScreen();
+            SceneManager.LoadScene("Game Over");
         }
 
         // Left and right arrow change the direction the player is facing
