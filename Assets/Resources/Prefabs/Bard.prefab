@@ -112,4 +112,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc3a067d3ec2218498bc301a1bb15e01, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  track: {fileID: 0}
+  playUp: 273
+  playDown: 274
+  playLeft: 276
+  playRight: 275
+  instrumentNext: 115
+  instrumentPrev: 119
+  faceLeft: 97
+  faceRight: 100
   wave: {fileID: 3219325024775619123, guid: daa5b57cbfa95e440ab8bc0bce857500, type: 3}
