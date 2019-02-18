@@ -18,13 +18,16 @@ public class PlayerController : MonoBehaviour
     private int healthPoints;
 	private int instrument;
 
-    // Have the sprites for the bard - the bard starts off facing right because direction is true
-    private Sprite bardLeft;
-    private Sprite bardRight;
-    private SpriteRenderer bardRenderer;
+    // Animations
+    private Animator animator;
+    private List<RuntimeAnimatorController> animatorControllers;
+    private RuntimeAnimatorController redBardController;
+    private RuntimeAnimatorController blueBardController;
+    private RuntimeAnimatorController greenBardController;
 
-	// controls to be set
-	public KeyCode playUp = KeyCode.UpArrow;
+
+    // controls to be set
+    public KeyCode playUp = KeyCode.UpArrow;
 	public KeyCode playDown = KeyCode.DownArrow;
 	public KeyCode playLeft = KeyCode.LeftArrow;
 	public KeyCode playRight = KeyCode.RightArrow;
@@ -39,8 +42,21 @@ public class PlayerController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        instrument = 0;
         healthPoints = 100;
         direction = true;
+
+        animator = gameObject.GetComponent<Animator>();
+        animatorControllers = new List<RuntimeAnimatorController>();
+
+        redBardController = Resources.Load<RuntimeAnimatorController>("Animations/Red Bard") as RuntimeAnimatorController;
+        blueBardController = Resources.Load<RuntimeAnimatorController>("Animations/Blue Bard") as RuntimeAnimatorController;
+        greenBardController = Resources.Load<RuntimeAnimatorController>("Animations/Green Bard") as RuntimeAnimatorController;
+        animatorControllers.Add(redBardController);
+        animatorControllers.Add(blueBardController);
+        animatorControllers.Add(greenBardController);
+
+        animator.runtimeAnimatorController = animatorControllers[instrument];
     }
 
     // Update is called once per frame
@@ -58,8 +74,7 @@ public class PlayerController : MonoBehaviour
             if (direction)
             {
                 // Change sprite to face left
-                gameObject.transform.localScale = new Vector3(1, 1, 1);
-                Debug.Log("Facing left");
+                gameObject.transform.localScale = new Vector3(3, 3, 1);
                 direction = false;
             }
         }
@@ -69,8 +84,7 @@ public class PlayerController : MonoBehaviour
             if (!direction)
             {
                 // Change sprite to face right 
-                gameObject.transform.localScale = new Vector3(-1, 1, 1);
-                Debug.Log("Facing right");
+                gameObject.transform.localScale = new Vector3(-3, 3, 1);
                 direction = true;
             }
         }
@@ -80,14 +94,14 @@ public class PlayerController : MonoBehaviour
         {
 			++instrument;
 			if (instrument >= track.CountInstruments) instrument = 0;
-			Debug.Log("Switched to instrument " + instrument);
+            animator.runtimeAnimatorController = animatorControllers[instrument];
         }
 
 		if (Input.GetKeyDown(instrumentPrev))
 		{
 			--instrument;
 			if (instrument < 0) instrument = track.CountInstruments -1;
-			Debug.Log("Switched to instrument " + instrument);
+            animator.runtimeAnimatorController = animatorControllers[instrument];
 		}
 
 		// try to play the note
@@ -126,7 +140,7 @@ public class PlayerController : MonoBehaviour
     {
         GameObject projectile = Instantiate(wave, transform.position, Quaternion.identity) as GameObject;
         projectile.GetComponent<Wave>().SetDirection(direction);
-        projectile.GetComponent<Wave>().SetColor(1);
+        projectile.GetComponent<Wave>().SetColor(instrument);
     }
 
     // The player is taking damage :C 
