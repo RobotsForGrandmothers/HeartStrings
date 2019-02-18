@@ -42,7 +42,8 @@ public class Track : MonoBehaviour {
             var it = noteIterators[i];
             Note note = it.Current;
           
-            while (note != null && note.time > Time.time - windowWidth) {
+            while (note != null && (Time.time - note.time + windowWidth > 0)) {
+                Debug.Log("************" + (Time.time - note.time + windowWidth) + " " + Time.time);
                 OnEnterWindow(note);
                 it.MoveNext();
                 note = it.Current;
