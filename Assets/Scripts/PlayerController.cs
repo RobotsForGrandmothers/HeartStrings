@@ -74,7 +74,7 @@ public class PlayerController : MonoBehaviour
             if (direction)
             {
                 // Change sprite to face left
-                gameObject.transform.localScale = new Vector3(1, 1, 1);
+                gameObject.transform.localScale = new Vector3(3, 3, 1);
                 Debug.Log("Facing left");
                 direction = false;
             }
@@ -85,7 +85,7 @@ public class PlayerController : MonoBehaviour
             if (!direction)
             {
                 // Change sprite to face right 
-                gameObject.transform.localScale = new Vector3(-1, 1, 1);
+                gameObject.transform.localScale = new Vector3(-3, 3, 1);
                 Debug.Log("Facing right");
                 direction = true;
             }
@@ -144,7 +144,7 @@ public class PlayerController : MonoBehaviour
     {
         GameObject projectile = Instantiate(wave, transform.position, Quaternion.identity) as GameObject;
         projectile.GetComponent<Wave>().SetDirection(direction);
-        projectile.GetComponent<Wave>().SetColor(1);
+        projectile.GetComponent<Wave>().SetColor(instrument);
     }
 
     // The player is taking damage :C 

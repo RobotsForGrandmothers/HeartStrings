@@ -282,7 +282,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   colour: 0
   max_health: 10
-  speed: 0.1
+  speed: 0.05
   monster_position: {x: 0, y: 0}
 --- !u!50 &3671650883793983343
 Rigidbody2D:

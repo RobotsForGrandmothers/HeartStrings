@@ -46,9 +46,9 @@ public class Wave : MonoBehaviour
         Color newColor;
         switch (color)
         {
-            case 0:  newColor  = Color.red;   break;
-            case 1:  newColor  = Color.green; break;
-            case 2:  newColor  = Color.blue;  break;
+            case 0:  newColor  = Color.red; break;
+            case 1:  newColor  = Color.blue; break;
+            case 2:  newColor  = Color.green; break;
             default: newColor  = Color.white; break;
         }
 
