@@ -87,7 +87,13 @@ public class Monster : MonoBehaviour
     void takeDamage(int damage){
         cur_health -= damage;
         float hp_decr_factor = -0.1f * damage / max_health;
-        health_bar.localScale += new Vector3(hp_decr_factor,0,0);
+        Vector3 temp_hp_scale = health_bar.localScale + new Vector3(hp_decr_factor,0,0);
+        if (temp_hp_scale.x >= 0){
+            //Debug.Log("decrease health");
+            health_bar.localScale = temp_hp_scale;
+        }
+            
+        //health_bar.localScale += new Vector3(hp_decr_factor,0,0);
         if (cur_health <= 0){
             animator.runtimeAnimatorController = happyMonsterAnimationControllers[(int)colour];
             Destroy(this.gameObject, 1.0f);
