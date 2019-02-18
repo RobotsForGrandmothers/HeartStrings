@@ -9,10 +9,13 @@ public class Monster : MonoBehaviour
     public int max_health;
     public float speed;
     public Vector2 monster_position;
+    public float wait_time = 2;
     
     private int cur_health;
     private Vector2 player_position = new Vector2(0,0);
     private Transform health_bar;
+    private bool should_move = true;
+    private float time_of_stop = 0;
 
     private Animator animator;
     public RuntimeAnimatorController normalAnimationController;
@@ -26,7 +29,7 @@ public class Monster : MonoBehaviour
         creationTime = Time.time;
         animator = gameObject.GetComponent<Animator>();
         animator.runtimeAnimatorController = normalAnimationController;
-
+        
         cur_health = max_health;
         health_bar = this.transform.GetChild(0);
 
@@ -39,7 +42,9 @@ public class Monster : MonoBehaviour
     // Update is called once per frame
     void Update(){
         if (Vector2.Distance(transform.position, Vector2.zero) > 1){
-            Move();
+            if (Time.time > time_of_stop + wait_time){
+                Move();
+            }
         }
         else{
             //maybe leave the screen
@@ -54,11 +59,9 @@ public class Monster : MonoBehaviour
         float hp_decr_factor = -0.1f * damage / max_health;
         Vector3 temp_hp_scale = health_bar.localScale + new Vector3(hp_decr_factor,0,0);
         if (temp_hp_scale.x >= 0){
-            //Debug.Log("decrease health");
             health_bar.localScale = temp_hp_scale;
         }
             
-        //health_bar.localScale += new Vector3(hp_decr_factor,0,0);
         if (cur_health <= 0){
             animator.runtimeAnimatorController = deathAnimationController;
             Destroy(this.gameObject);
@@ -66,6 +69,8 @@ public class Monster : MonoBehaviour
     }
     
     void stopMovement(){
+        should_move = false;
+        time_of_stop = Time.time;
         //stop the monster from moving
     }
     
