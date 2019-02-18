@@ -28,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 2405443311498807540}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 3, y: 3, z: 1}
+  m_LocalScale: {x: -3, y: 3, z: 1}
   m_Children:
   - {fileID: 7759782320543505578}
   - {fileID: 911104543912506224}
@@ -115,6 +115,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   track: {fileID: 0}
+  max_health: 10
   playUp: 273
   playDown: 274
   playLeft: 276
