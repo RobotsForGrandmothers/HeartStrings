@@ -153,6 +153,7 @@ public class PlayerController : MonoBehaviour
     void SpawnWave()
     {
         combo += 1;
+        combo = 1;
         GameObject projectile = Instantiate(wave, transform.position, Quaternion.identity) as GameObject;
         projectile.GetComponent<Wave>().SetDirection(direction);
         projectile.GetComponent<Wave>().SetColor(instrument, combo);

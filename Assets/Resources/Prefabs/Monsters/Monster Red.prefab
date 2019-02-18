@@ -143,10 +143,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   max_health: 6
-  speed: 0.25
-  monster_position: {x: 0, y: 0}
+  speed: 0.5
   wait_time: 2
-  playerDamage: 4
+  playerDamage: 1
   normalAnimationController: {fileID: 9100000, guid: b7c4f579f29538a489a4d370fab1dde1,
     type: 2}
   deathAnimationController: {fileID: 9100000, guid: e8d5fff5387685b46aaf2cd15e911a05,

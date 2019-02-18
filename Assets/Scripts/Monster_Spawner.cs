@@ -35,6 +35,9 @@ public class Monster_Spawner : MonoBehaviour{
 
     // Update is called once per frame
     void Update() {
+        if (spawnRed < 0) spawnRed = 0;
+        if (spawnBlue < 0) spawnBlue = 0;
+        if (spawnGreen < 0) spawnGreen = 0;
         if (spawnRed >= spawnRedThreshold) {
             SpawnMonster(monsterRed);
             spawnRed -= spawnRedThreshold;
@@ -66,11 +69,5 @@ public class Monster_Spawner : MonoBehaviour{
     }
     
     void NoteWindowExit(object obj, NoteEvent evt) {
-        switch (evt.note.instrument) {
-            case 0: --spawnRed; break;
-            case 1: --spawnBlue; break;
-            case 2: --spawnGreen; break;
-        }
-    
     }
 }
