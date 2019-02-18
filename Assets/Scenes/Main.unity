@@ -672,6 +672,11 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
+    - target: {fileID: 6992588039756804628, guid: b734f3ebbba3a09418809a56612bb495,
+        type: 3}
+      propertyPath: audio
+      value: 
+      objectReference: {fileID: 692578468}
     - target: {fileID: 6992588039756804629, guid: b734f3ebbba3a09418809a56612bb495,
         type: 3}
       propertyPath: player
