@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class Track : MonoBehaviour {
     public TextAsset[] musicTexts;
+    public AudioSource audio;
     private Music music;
     public int CountInstruments { get { return music.CountInstruments; } }
     
@@ -35,6 +36,8 @@ public class Track : MonoBehaviour {
             noteIterators.Add(it);
             windowNotes.Add(new Queue<Note>());
         }
+        
+        audio.Play();
     }
     
     void Update() {
@@ -42,7 +45,7 @@ public class Track : MonoBehaviour {
             var it = noteIterators[i];
             Note note = it.Current;
           
-            while (note != null && (Time.time - note.time + windowWidth > 0)) {
+            while (note != null && (audio.time - note.time + windowWidth > 0)) {
                 OnEnterWindow(note);
                 it.MoveNext();
                 note = it.Current;
@@ -50,7 +53,7 @@ public class Track : MonoBehaviour {
             
             var q = windowNotes[i];
             
-            while (q.Count > 0 && q.Peek().time - Time.time < -timeBuffer) {
+            while (q.Count > 0 && q.Peek().time - audio.time < -timeBuffer) {
                 OnMissNote(q.Dequeue());
             }
         }
@@ -80,7 +83,7 @@ public class Track : MonoBehaviour {
 
         Note latest = windowNotes[instrument].Peek();
 
-        if (Mathf.Abs(latest.time - Time.time) <= timeBuffer) {
+        if (Mathf.Abs(latest.time - audio.time) <= timeBuffer) {
             windowNotes[instrument].Dequeue();
 
             if (latest.dir == dir) {
@@ -91,7 +94,7 @@ public class Track : MonoBehaviour {
                 return false;
             }
         } else {
-			Debug.Log("No note close to time. latest: " + latest + " at time " + Time.time);
+			Debug.Log("No note close to time. latest: " + latest + " at time " + audio.time);
             return false;
         }
     }

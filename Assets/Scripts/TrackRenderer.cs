@@ -11,7 +11,7 @@ public class TrackRenderer : MonoBehaviour {
     public PlayerController player;
     private int currentInstrument = 0;
     
-    private Track track { get { return GetComponent<Track>(); } }
+    public Track track { get { return GetComponent<Track>(); } }
 
     void Start() {
         track.EnterWindow += AddNote;

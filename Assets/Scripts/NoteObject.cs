@@ -40,7 +40,7 @@ public class NoteObject : MonoBehaviour {
     
     void Update() {
         Vector3 pos = this.transform.localPosition;
-        pos.x = trackRenderer.XForDeltaTime(Time.time - _note.time);
+        pos.x = trackRenderer.XForDeltaTime(trackRenderer.track.audio.time - _note.time);
         this.transform.localPosition = pos;
     }
 }

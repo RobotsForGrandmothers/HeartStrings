@@ -168,8 +168,8 @@ MonoBehaviour:
   - {fileID: 4900000, guid: 234abdd067cf4954aa108ec5c1732329, type: 3}
   - {fileID: 4900000, guid: 94c4c22523f713946a744f33bb8288be, type: 3}
   windowWidth: 5
-  timeBuffer: 0.5
-  initialDelay: 5
+  timeBuffer: 0.25
+  initialDelay: 0
 --- !u!114 &6992588039756804629
 MonoBehaviour:
   m_ObjectHideFlags: 0
