@@ -36,9 +36,9 @@ public class Monster : MonoBehaviour
         normalMonsterAnimationControllers = new List<RuntimeAnimatorController>();
         happyMonsterAnimationControllers = new List<RuntimeAnimatorController>();
 
-        redNormalMonster = Resources.Load<RuntimeAnimatorController>("Animations/Normal Cyclops") as RuntimeAnimatorController;
+        redNormalMonster = Resources.Load<RuntimeAnimatorController>("Animations/Floaty Cyclops Cyclops") as RuntimeAnimatorController;
         blueNormalMonster = Resources.Load<RuntimeAnimatorController>("Animations/Normal Squiggly") as RuntimeAnimatorController;
-        greenNormalMonster = Resources.Load<RuntimeAnimatorController>("Animations/Normal Snail") as RuntimeAnimatorController;
+        greenNormalMonster = Resources.Load<RuntimeAnimatorController>("Animations/Shuffle Snail") as RuntimeAnimatorController;
         normalMonsterAnimationControllers.Add(redNormalMonster);
         normalMonsterAnimationControllers.Add(blueNormalMonster);
         normalMonsterAnimationControllers.Add(greenNormalMonster);
