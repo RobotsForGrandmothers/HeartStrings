@@ -25,6 +25,8 @@ public class PlayerController : MonoBehaviour
             OnInstrumentSwitch(_instrument);
         }
     }
+    private Transform health_bar;
+    public int max_health = 10;
 
     // Animations
     private Animator animator;
@@ -55,6 +57,7 @@ public class PlayerController : MonoBehaviour
         instrument = 0;
         healthPoints = 100;
         direction = true;
+        health_bar = this.transform.GetChild(0);
 
         animator = gameObject.GetComponent<Animator>();
         animatorControllers = new List<RuntimeAnimatorController>();
@@ -156,13 +159,26 @@ public class PlayerController : MonoBehaviour
     void TakeDamage (int damage)
     {
         healthPoints -= damage;
-    }
+        float hp_decr_factor = -0.1f * damage / max_health;
+        Vector3 temp_hp_scale = health_bar.localScale + new Vector3(hp_decr_factor,0,0);
+        if (temp_hp_scale.x >= 0){
+            health_bar.localScale = temp_hp_scale;
+        }
+   }
 
     void OnInstrumentSwitch(int instrument) {
         EventHandler<InstrumentEvent> handler = InstrumentSwitch;
         if (handler != null) handler(this, new InstrumentEvent(instrument));
         Debug.Log("Player switched instrument to " + instrument);
     }
+
+    void OnTriggerEnter2D(Collider2D monster){
+        if (monster.gameObject.CompareTag("Monster")){
+            Monster obj = monster.gameObject.GetComponent<Monster>();
+            TakeDamage(obj.playerDamage);
+        }
+    
+    } 
 }
 
 public class InstrumentEvent : EventArgs {
