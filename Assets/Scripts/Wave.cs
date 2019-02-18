@@ -5,9 +5,13 @@ using UnityEngine;
 public class Wave : MonoBehaviour
 {
     private int damage = 1;
+    public AnimationCurve scaleCurve;
+    public Gradient gradientCurve;
+    float creationTime;
 
     void Awake()
     {
+        creationTime = Time.time;
         Destroy(gameObject, 2.0f);
     }
     // Start is called before the first frame update
@@ -19,14 +23,9 @@ public class Wave : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.Translate(Time.deltaTime*5 * Vector2.right);
-
-        Vector3 scale = transform.localScale;
-        float newScale = scale.x + Time.deltaTime * 3;
-        scale.Set(newScale, newScale, newScale);
-        transform.localScale = scale;
-
-        transform.localScale.Set(0, 0, 0);
+        transform.Translate(Vector2.right * Time.deltaTime * 5);
+        transform.localScale = Vector3.one * scaleCurve.Evaluate(Time.time - creationTime);
+        gameObject.GetComponent<SpriteRenderer>().color = gradientCurve.Evaluate((Time.time - creationTime)/1.8f);
     }
 
     public void SetDirection(bool direction) {
@@ -42,21 +41,20 @@ public class Wave : MonoBehaviour
 
     public void SetColor(int color)
     {
+        Color newColor;
         switch (color)
         {
-            case 2:
-                Debug.Log("2");
-                gameObject.GetComponent<SpriteRenderer>().color = new Color(1f, 0.5f, 0.3f, 0.9f);
-                break;
-            case 1:
-                Debug.Log("1");
-                gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 0.8f, 0.43f, 0.9f);
-                break;
-            case 0:
-                Debug.Log("0");
-                gameObject.GetComponent<SpriteRenderer>().color = new Color(0, 0.60f, 1f, 0.9f);
-                break;
+            case 0:  newColor  = Color.red;   break;
+            case 1:  newColor  = Color.green; break;
+            case 2:  newColor  = Color.blue;  break;
+            default: newColor  = Color.white; break;
         }
+
+        GradientColorKey[] colorKeys = gradientCurve.colorKeys;
+        colorKeys[0].color = newColor;
+        colorKeys[1].color = newColor;
+
+        gradientCurve.SetKeys(colorKeys, gradientCurve.alphaKeys);
     }
 
     public void SetDamage(int damage)
