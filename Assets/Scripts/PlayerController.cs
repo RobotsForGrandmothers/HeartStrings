@@ -79,8 +79,7 @@ public class PlayerController : MonoBehaviour
     {
         if (healthPoints <= 0)
         {
-            // Go to end game screen
-            UIController.ShowEndGameScreen();
+            UIController.QuitGame();
         }
 
         // Left and right arrow change the direction the player is facing
