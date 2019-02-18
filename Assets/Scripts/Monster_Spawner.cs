@@ -8,6 +8,7 @@ public class Monster_Spawner : MonoBehaviour{
     
     //rate per second that spawner will spawn a monster
     public float Spawn_rate = 1;
+    private int cameraHeight = 10;
 
     private GameObject[] monsters;
     
@@ -32,7 +33,7 @@ public class Monster_Spawner : MonoBehaviour{
     void SpawnMonster(){
         GameObject obj = Instantiate(monsters[random.Next(monsters.Length)]);
         Monster monster = obj.GetComponent<Monster>();
-        float y_coord = random.Next(10) - 5.0f;
+        float y_coord = random.Next(cameraHeight) - cameraHeight/2;
         float x_coord = transform.position.x;
         monster.transform.position = new Vector2(x_coord,y_coord);
     }
