@@ -4,37 +4,83 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
-    public enum Colour{
-        RED,BLUE,GREEN
-    }
-    public Colour colour;
-    public int max_health = 10;
-    public float speed = 0.1f;
+    public enum Colors { Red, Blue, Green };
+
+    public int max_health;
+    public float speed;
     public Vector2 monster_position;
     
     private int cur_health;
     private Vector2 player_position = new Vector2(0,0);
+    private Transform health_bar;
+
+    private Animator animator;
+    public RuntimeAnimatorController normalAnimationController;
+    public RuntimeAnimatorController deathAnimationController;
     
+    protected float creationTime;
+    protected int color;
+
     // Start is called before the first frame update
-    void Start(){
+    protected virtual void Start(){
+        creationTime = Time.time;
+        animator = gameObject.GetComponent<Animator>();
+        animator.runtimeAnimatorController = normalAnimationController;
+
         cur_health = max_health;
-        
-        
+        health_bar = this.transform.GetChild(0);
+
+        if (transform.position.x < 0)
+        {
+            transform.localScale = new Vector3(-2, 2, 1);
+        }
     }
 
     // Update is called once per frame
     void Update(){
-        if ((Vector2)this.transform.position != player_position){
+        if (Vector2.Distance(transform.position, Vector2.zero) > 1){
             Move();
         }
         else{
-            //do something with player damage
             //maybe leave the screen
             Destroy(this.gameObject);
         }
     }
 
-    void Move(){
-        this.transform.position = Vector2.MoveTowards((Vector2)this.transform.position, player_position, speed);
+    virtual protected void Move(){}
+    
+    void takeDamage(int damage){
+        cur_health -= damage;
+        float hp_decr_factor = -0.1f * damage / max_health;
+        Vector3 temp_hp_scale = health_bar.localScale + new Vector3(hp_decr_factor,0,0);
+        if (temp_hp_scale.x >= 0){
+            //Debug.Log("decrease health");
+            health_bar.localScale = temp_hp_scale;
+        }
+            
+        //health_bar.localScale += new Vector3(hp_decr_factor,0,0);
+        if (cur_health <= 0){
+            animator.runtimeAnimatorController = deathAnimationController;
+            Destroy(this.gameObject);
+        }
+    }
+    
+    void stopMovement(){
+        //stop the monster from moving
+    }
+    
+    void OnTriggerEnter2D(Collider2D wave){
+        if(wave.gameObject.CompareTag("Wave")){
+            Wave obj = wave.gameObject.GetComponent<Wave>();
+            if (obj.GetColor() == color){
+                takeDamage(obj.GetDamage());
+                stopMovement();
+            }
+            //Debug.Log(typeof(comp));
+            //int Damage = 2;
+            //takeDamage(wave.gameObject.);
+            
+            //Destroy(this.gameObject);
+        }
     }
 }

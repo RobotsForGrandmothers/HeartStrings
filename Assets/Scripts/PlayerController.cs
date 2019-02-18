@@ -10,28 +10,53 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+	// track player is playing
+	public Track track;
+
     // False = Left, True = Right
     private bool direction;
     private int healthPoints;
+	private int instrument;
 
-    // Have the sprites for the bard - the bard starts off facing right because direction is true
-    private Sprite bardLeft;
-    private Sprite bardRight;
-    private SpriteRenderer bardRenderer;
+    // Animations
+    private Animator animator;
+    private List<RuntimeAnimatorController> animatorControllers;
+    private RuntimeAnimatorController redBardController;
+    private RuntimeAnimatorController blueBardController;
+    private RuntimeAnimatorController greenBardController;
 
-    // Assign the wave emitters
-    public GameObject leftWaveEmitter;
-    public GameObject rightWaveEmitter;
+
+    // controls to be set
+    public KeyCode playUp = KeyCode.UpArrow;
+	public KeyCode playDown = KeyCode.DownArrow;
+	public KeyCode playLeft = KeyCode.LeftArrow;
+	public KeyCode playRight = KeyCode.RightArrow;
+	public KeyCode instrumentNext = KeyCode.S;
+	public KeyCode instrumentPrev = KeyCode.W;
+	public KeyCode faceLeft = KeyCode.A;
+	public KeyCode faceRight = KeyCode.D;
+
+    // Assign the wave object
+    public GameObject wave;
 
     // Start is called before the first frame update
     void Start()
     {
+        instrument = 0;
         healthPoints = 100;
         direction = true;
 
-        bardRenderer = gameObject.GetComponent<SpriteRenderer>();
-        bardLeft = Resources.Load<Sprite>("Sprites/BardLeft");
-        bardRight = Resources.Load<Sprite>("Sprites/BardRight");
+        animator = gameObject.GetComponent<Animator>();
+        animatorControllers = new List<RuntimeAnimatorController>();
+
+        redBardController = Resources.Load<RuntimeAnimatorController>("Animations/Red Bard") as RuntimeAnimatorController;
+        blueBardController = Resources.Load<RuntimeAnimatorController>("Animations/Blue Bard") as RuntimeAnimatorController;
+        greenBardController = Resources.Load<RuntimeAnimatorController>("Animations/Green Bard") as RuntimeAnimatorController;
+        animatorControllers.Add(redBardController);
+        animatorControllers.Add(blueBardController);
+        animatorControllers.Add(greenBardController);
+
+        animator.runtimeAnimatorController = animatorControllers[instrument];
     }
 
     // Update is called once per frame
@@ -44,56 +69,78 @@ public class PlayerController : MonoBehaviour
         }
 
         // Left and right arrow change the direction the player is facing
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(faceLeft))
         {
             if (direction)
             {
                 // Change sprite to face left
-                bardRenderer.sprite = bardLeft;
-                Debug.Log("Facing left");
+                gameObject.transform.localScale = new Vector3(3, 3, 1);
                 direction = false;
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(faceRight))
         {
             if (!direction)
             {
                 // Change sprite to face right 
-                bardRenderer.sprite = bardRight;
-                Debug.Log("Facing right");
+                gameObject.transform.localScale = new Vector3(-3, 3, 1);
                 direction = true;
             }
         }
 
         // Space changes the instrument into the next one
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(instrumentNext))
         {
-
+			++instrument;
+			if (instrument >= track.CountInstruments) instrument = 0;
+            animator.runtimeAnimatorController = animatorControllers[instrument];
         }
 
-        // TEMP BUTTON PRESS - assume callback for spawn wave later
-        if (Input.GetKeyDown(KeyCode.T))
+		if (Input.GetKeyDown(instrumentPrev))
+		{
+			--instrument;
+			if (instrument < 0) instrument = track.CountInstruments -1;
+            animator.runtimeAnimatorController = animatorControllers[instrument];
+		}
+
+		// try to play the note
+        if (Input.GetKeyDown(playUp))
+        {
+            if (track.TryPlayNote(instrument, Note.Dir.UP)) {
+				SpawnWave();
+			}
+        }
+        if (Input.GetKeyDown(playDown))
+        {
+            if (track.TryPlayNote(instrument, Note.Dir.DOWN)) {
+				SpawnWave();
+			}
+        }
+        if (Input.GetKeyDown(playLeft))
+        {
+            if (track.TryPlayNote(instrument, Note.Dir.LEFT)) {
+				SpawnWave();
+			}
+        }
+        if (Input.GetKeyDown(playRight))
+        {
+            if (track.TryPlayNote(instrument, Note.Dir.RIGHT)) {
+				SpawnWave();
+			}
+        }
+        // DEVELOPER CHEAT KEY
+        if (Input.GetKeyDown("t"))
         {
             SpawnWave();
         }
     }
 
-    void ChangeInstrument()
-    {
-
-    }
-
     void SpawnWave()
     {
-        // True spawns wave on right, otherwise on left
-        if (direction)
-        {
-            rightWaveEmitter.GetComponent<ParticleSystem>().Play();
-        } else
-        {
-            leftWaveEmitter.GetComponent<ParticleSystem>().Play();
-        }
+        GameObject projectile = Instantiate(wave, transform.position, Quaternion.identity) as GameObject;
+        projectile.GetComponent<Wave>().SetDirection(direction);
+        projectile.GetComponent<Wave>().SetColor(instrument);
     }
 
     // The player is taking damage :C 
