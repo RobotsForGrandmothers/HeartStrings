@@ -10,6 +10,7 @@ public class Monster_Spawner : MonoBehaviour{
     public float Spawn_rate = 1;
     public GameObject preFab;
     public float camera_height = 10;
+    public bool left;
     //public Vector2 spawner_position;
     
     private float next_spawn = 0;
@@ -34,14 +35,14 @@ public class Monster_Spawner : MonoBehaviour{
     void SpawnMonster(){
         GameObject obj = Instantiate(preFab);
         Monster monster = obj.GetComponent<Monster>();
-        //float randFloat = (float)random.NextDouble();
-        //Debug.Log(randFloat);
-        float y_coord = camera_height*((float)random.NextDouble() - 0.5f);//camera_height*randFloat;//(float)random.NextDouble();//(int)y_spawn_coords.GetValue(random.Next(y_spawn_coords.Length));
-        Debug.Log(y_coord);
+        float y_coord = camera_height*((float)random.NextDouble() - 0.5f);
+        float x_coord = -2;
+        if (this.left == true){
+            x_coord = 2;
+        }
         
         monster.colour = (Monster.Colour)monster_colours.GetValue(random.Next(monster_colours.Length));
-        monster.transform.position = (Vector2)this.transform.position + new Vector2(-2,y_coord);
-        //monster.monster_position = spawner_position + new Vector2(1,1); //Eventually make this a semi random thing 
+        monster.transform.position = (Vector2)this.transform.position + new Vector2(x_coord,y_coord);
 
     }
 }
