@@ -57,9 +57,11 @@ public class Wave : MonoBehaviour
         colorKeys[0].color = newColor;
         colorKeys[1].color = newColor;
 
-        Debug.Log(gradientCurve.alphaKeys);
+        GradientAlphaKey[] dif_alphakeys = gradientCurve.alphaKeys;
+        dif_alphakeys[1].alpha = Mathf.Min(1.0f, combo/5.0f);
         
-        gradientCurve.SetKeys(colorKeys, gradientCurve.alphaKeys);
+        
+        gradientCurve.SetKeys(colorKeys, dif_alphakeys); 
     }
 
     public int GetColor()
