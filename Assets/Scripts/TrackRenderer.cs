@@ -63,10 +63,10 @@ public class TrackRenderer : MonoBehaviour {
     }
     
     /// <summary>
-    ///   time 0 is the right hand side. Negative time going left.
+    ///   Time 0 is the right hand side. Negative time going left.
     /// </summary>
     public float XForDeltaTime(float time) {
         Rect rect = GetComponent<RectTransform>().rect;
-        return rect.width / 2 + rect.width * time / track.windowWidth;
+        return rect.width / 2 + rect.width * (time - track.timeBuffer) / track.windowWidth;
     }
 }
