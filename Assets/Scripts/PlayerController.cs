@@ -41,10 +41,6 @@ public class PlayerController : MonoBehaviour
     {
         healthPoints = 100;
         direction = true;
-
-        bardRenderer = gameObject.GetComponent<SpriteRenderer>();
-        bardLeft = Resources.Load<Sprite>("Sprites/BardLeft");
-        bardRight = Resources.Load<Sprite>("Sprites/BardRight");
     }
 
     // Update is called once per frame
@@ -62,7 +58,7 @@ public class PlayerController : MonoBehaviour
             if (direction)
             {
                 // Change sprite to face left
-                bardRenderer.sprite = bardLeft;
+                gameObject.transform.localScale = new Vector3(1, 1, 1);
                 Debug.Log("Facing left");
                 direction = false;
             }
@@ -73,7 +69,7 @@ public class PlayerController : MonoBehaviour
             if (!direction)
             {
                 // Change sprite to face right 
-                bardRenderer.sprite = bardRight;
+                gameObject.transform.localScale = new Vector3(-1, 1, 1);
                 Debug.Log("Facing right");
                 direction = true;
             }
