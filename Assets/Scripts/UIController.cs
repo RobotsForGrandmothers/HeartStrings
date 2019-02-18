@@ -19,13 +19,10 @@ public static class UIController
     // Time to quit the game 
     public static void QuitGame()
     {
-        if (Application.isEditor)
-        {
+#if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
-        }
-        else
-        {
+#else
             Application.Quit();
-        }
+#endif
     }
 }

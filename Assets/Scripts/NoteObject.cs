@@ -32,7 +32,7 @@ public class NoteObject : MonoBehaviour {
         RectTransform rect = this.GetComponent<RectTransform>();
         
         Vector3 pos = this.transform.localPosition;
-        pos.x = parent.width / 2 + parent.width * (Time.time - _note.time - track.timeBuffer) / track.windowWidth;
+        pos.x = parent.width / 2 + parent.width * (Time.time - _note.time) / track.windowWidth;
         this.transform.localPosition = pos;
     }
 }

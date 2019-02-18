@@ -10,14 +10,28 @@ using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+	// track player is playing
+	public Track track;
+
     // False = Left, True = Right
     private bool direction;
     private int healthPoints;
+	private int instrument;
 
     // Have the sprites for the bard - the bard starts off facing right because direction is true
     private Sprite bardLeft;
     private Sprite bardRight;
     private SpriteRenderer bardRenderer;
+
+	// controls to be set
+	public KeyCode playUp = KeyCode.UpArrow;
+	public KeyCode playDown = KeyCode.DownArrow;
+	public KeyCode playLeft = KeyCode.LeftArrow;
+	public KeyCode playRight = KeyCode.RightArrow;
+	public KeyCode instrumentNext = KeyCode.S;
+	public KeyCode instrumentPrev = KeyCode.W;
+	public KeyCode faceLeft = KeyCode.A;
+	public KeyCode faceRight = KeyCode.D;
 
     // Assign the wave object
     public GameObject wave;
@@ -43,7 +57,7 @@ public class PlayerController : MonoBehaviour
         }
 
         // Left and right arrow change the direction the player is facing
-        if (Input.GetKeyDown(KeyCode.LeftArrow))
+        if (Input.GetKeyDown(faceLeft))
         {
             if (direction)
             {
@@ -54,7 +68,7 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.RightArrow))
+        if (Input.GetKeyDown(faceRight))
         {
             if (!direction)
             {
@@ -66,21 +80,45 @@ public class PlayerController : MonoBehaviour
         }
 
         // Space changes the instrument into the next one
-        if (Input.GetKeyDown(KeyCode.Space))
+        if (Input.GetKeyDown(instrumentNext))
         {
-
+			++instrument;
+			if (instrument >= track.CountInstruments) instrument = 0;
+			Debug.Log("Switched to instrument " + instrument);
         }
 
-        // TEMP BUTTON PRESS - assume callback for spawn wave later
-        if (Input.GetKeyDown(KeyCode.T))
+		if (Input.GetKeyDown(instrumentPrev))
+		{
+			--instrument;
+			if (instrument < 0) instrument = track.CountInstruments -1;
+			Debug.Log("Switched to instrument " + instrument);
+		}
+
+		// try to play the note
+        if (Input.GetKeyDown(playUp))
         {
-            SpawnWave();
+            if (track.TryPlayNote(instrument, Note.Dir.UP)) {
+				SpawnWave();
+			}
         }
-    }
-
-    void ChangeInstrument()
-    {
-
+        if (Input.GetKeyDown(playDown))
+        {
+            if (track.TryPlayNote(instrument, Note.Dir.DOWN)) {
+				SpawnWave();
+			}
+        }
+        if (Input.GetKeyDown(playLeft))
+        {
+            if (track.TryPlayNote(instrument, Note.Dir.LEFT)) {
+				SpawnWave();
+			}
+        }
+        if (Input.GetKeyDown(playRight))
+        {
+            if (track.TryPlayNote(instrument, Note.Dir.RIGHT)) {
+				SpawnWave();
+			}
+        }
     }
 
     void SpawnWave()
