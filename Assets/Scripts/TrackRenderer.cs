@@ -40,7 +40,7 @@ public class TrackRenderer : MonoBehaviour {
     }
     
     void AddNote(object obj, NoteEvent evt) {
-        Debug.Log("Added note " + evt);
+        //Debug.Log("Added note " + evt);
         Rect rect = GetComponent<RectTransform>().rect;
         Vector2 localPos = -Vector2.up * (-rect.height / 2 + (evt.note.instrument + 0.5f) * rect.height / track.CountInstruments);
         notes[evt.note] = Instantiate(notePrefab, this.transform).GetComponent<NoteObject>();
@@ -51,13 +51,13 @@ public class TrackRenderer : MonoBehaviour {
     }
     
     void PlayNote(object obj, NoteEvent evt) {
-        Debug.Log("Played note " + evt);
+        //Debug.Log("Played note " + evt);
         Destroy(notes[evt.note].gameObject);
         notes.Remove(evt.note);
     }
     
     void MissNote(object obj, NoteEvent evt) {
-        Debug.Log("Missed note " + evt);
+        //Debug.Log("Missed note " + evt);
         Destroy(notes[evt.note].gameObject);
         notes.Remove(evt.note);
     }

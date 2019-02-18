@@ -40,7 +40,7 @@ public class Wave : MonoBehaviour
         }
     }
 
-    public void SetColor(int color)
+    public void SetColor(int color, int combo)
     {
         waveColor = color;
         Color newColor;
@@ -52,10 +52,13 @@ public class Wave : MonoBehaviour
             default: newColor  = Color.white; break;
         }
 
+        //newColor.a = Mathf.Min(1.0f, combo/5.0f);
         GradientColorKey[] colorKeys = gradientCurve.colorKeys;
         colorKeys[0].color = newColor;
         colorKeys[1].color = newColor;
 
+        Debug.Log(gradientCurve.alphaKeys);
+        
         gradientCurve.SetKeys(colorKeys, gradientCurve.alphaKeys);
     }
 

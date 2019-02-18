@@ -43,7 +43,7 @@ public class Track : MonoBehaviour {
             Note note = it.Current;
           
             while (note != null && (Time.time - note.time + windowWidth > 0)) {
-                Debug.Log("************" + (Time.time - note.time + windowWidth) + " " + Time.time);
+                //Debug.Log("************" + (Time.time - note.time + windowWidth) + " " + Time.time);
                 OnEnterWindow(note);
                 it.MoveNext();
                 note = it.Current;
@@ -60,19 +60,19 @@ public class Track : MonoBehaviour {
     void OnEnterWindow(Note note) {
         windowNotes[note.instrument].Enqueue(note);
         EventHandler<NoteEvent> handler = EnterWindow;
-        Debug.Log("Note entered window: " + note);
+        //Debug.Log("Note entered window: " + note);
         if (handler != null) handler(this, new NoteEvent(note));
     }
     
     void OnMissNote(Note note) {
         EventHandler<NoteEvent> handler = MissNote;
-        Debug.Log("Missed note: " + note);
+        //Debug.Log("Missed note: " + note);
         if (handler != null) handler(this, new NoteEvent(note));
     }
     
     void OnPlayNote(Note note) {
         EventHandler<NoteEvent> handler = PlayNote;
-        Debug.Log("Played note: " + note);
+        //Debug.Log("Played note: " + note);
         if (handler != null) handler(this, new NoteEvent(note));
     }
     
@@ -92,7 +92,7 @@ public class Track : MonoBehaviour {
                 return false;
             }
         } else {
-			Debug.Log("No note close to time. latest: " + latest + " at time " + Time.time);
+			//Debug.Log("No note close to time. latest: " + latest + " at time " + Time.time);
             return false;
         }
     }

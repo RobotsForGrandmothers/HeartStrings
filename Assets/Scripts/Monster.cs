@@ -61,11 +61,15 @@ public class Monster : MonoBehaviour
         if (temp_hp_scale.x >= 0){
             health_bar.localScale = temp_hp_scale;
         }
+        else{
+            health_bar.localScale = new Vector3(0,0,0);
+        }
             
         if (cur_health <= 0){
             animator.runtimeAnimatorController = deathAnimationController;
-            Destroy(this.gameObject);
+            Destroy(this.gameObject, 1.0f);
         }
+        
     }
     
     void stopMovement(){
@@ -82,7 +86,7 @@ public class Monster : MonoBehaviour
             }
         }
         else if (col.gameObject.CompareTag("Player")){
-            animator.runtimeAnimatorController = deathAnimationController;
+            //animator.runtimeAnimatorController = deathAnimationController;
             Destroy(this.gameObject);
         }
     }

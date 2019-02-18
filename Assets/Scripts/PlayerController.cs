@@ -27,6 +27,8 @@ public class PlayerController : MonoBehaviour
     }
     private Transform health_bar;
     public int max_health = 10;
+    private int combo = 0;
+    
 
     // Animations
     private Animator animator;
@@ -150,9 +152,11 @@ public class PlayerController : MonoBehaviour
 
     void SpawnWave()
     {
+        combo += 1;
         GameObject projectile = Instantiate(wave, transform.position, Quaternion.identity) as GameObject;
         projectile.GetComponent<Wave>().SetDirection(direction);
-        projectile.GetComponent<Wave>().SetColor(instrument);
+        projectile.GetComponent<Wave>().SetColor(instrument, combo);
+        projectile.GetComponent<Wave>().SetDamage(combo);
     }
 
     // The player is taking damage :C 
@@ -164,11 +168,15 @@ public class PlayerController : MonoBehaviour
         if (temp_hp_scale.x >= 0){
             health_bar.localScale = temp_hp_scale;
         }
+        else if (temp_hp_scale.x < 0){
+            health_bar.localScale = new Vector3(0,0,0);
+        }
    }
 
     void OnInstrumentSwitch(int instrument) {
         EventHandler<InstrumentEvent> handler = InstrumentSwitch;
         if (handler != null) handler(this, new InstrumentEvent(instrument));
+        this.combo = 0;
         Debug.Log("Player switched instrument to " + instrument);
     }
 

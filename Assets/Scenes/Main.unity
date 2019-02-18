@@ -184,6 +184,21 @@ PrefabInstance:
       propertyPath: track
       value: 
       objectReference: {fileID: 734167661}
+    - target: {fileID: 5627092176707902007, guid: cbd0ec591d4c83c40bfe9afc3e180c05,
+        type: 3}
+      propertyPath: spawnRedThreshold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5627092176707902007, guid: cbd0ec591d4c83c40bfe9afc3e180c05,
+        type: 3}
+      propertyPath: spawnBlueThreshold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5627092176707902007, guid: cbd0ec591d4c83c40bfe9afc3e180c05,
+        type: 3}
+      propertyPath: spawnGreenThreshold
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbd0ec591d4c83c40bfe9afc3e180c05, type: 3}
 --- !u!1 &304683597
@@ -877,5 +892,20 @@ PrefabInstance:
       propertyPath: track
       value: 
       objectReference: {fileID: 734167661}
+    - target: {fileID: 5627092176707902007, guid: cbd0ec591d4c83c40bfe9afc3e180c05,
+        type: 3}
+      propertyPath: spawnRedThreshold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5627092176707902007, guid: cbd0ec591d4c83c40bfe9afc3e180c05,
+        type: 3}
+      propertyPath: spawnBlueThreshold
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5627092176707902007, guid: cbd0ec591d4c83c40bfe9afc3e180c05,
+        type: 3}
+      propertyPath: spawnGreenThreshold
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbd0ec591d4c83c40bfe9afc3e180c05, type: 3}
