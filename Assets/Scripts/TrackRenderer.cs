@@ -7,15 +7,26 @@ public class TrackRenderer : MonoBehaviour {
     Dictionary<Note, NoteObject> notes = new Dictionary<Note, NoteObject>();
     public NoteObject notePrefab;
     
+    public PlayerController player;
+    private int currentInstrument = 0;
 
     void Start() {
         GetComponent<Track>().EnterWindow += AddNote;
         GetComponent<Track>().PlayNote += PlayNote;
         GetComponent<Track>().MissNote += MissNote;
+        
+        player.InstrumentSwitch += InstrumentSwitch;
     }
     
     void Update() {
         
+    }
+    
+    void InstrumentSwitch(object obj, InstrumentEvent evt) {
+        currentInstrument = evt.instrument;
+        foreach (NoteObject noteObj in notes.Values) {
+            noteObj.fade = noteObj.note.instrument != evt.instrument;
+        }
     }
     
     void AddNote(object obj, NoteEvent evt) {
@@ -26,6 +37,7 @@ public class TrackRenderer : MonoBehaviour {
         notes[evt.note].transform.localPosition = localPos;
         notes[evt.note].track = GetComponent<Track>();
         notes[evt.note].note = evt.note;
+        notes[evt.note].fade = evt.note.instrument != currentInstrument;
     }
     
     void PlayNote(object obj, NoteEvent evt) {

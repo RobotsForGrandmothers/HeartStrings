@@ -9,9 +9,20 @@ public class NoteObject : MonoBehaviour {
     public Sprite spriteLeft;
     public Sprite spriteRight;
     
-    private Sprite image {
-        get { return GetComponent<Image>().sprite; }
-        set { GetComponent<Image>().sprite = value; }
+    public bool fade {
+        set {
+            Color color = image.color;
+            color.a = value ? 0.5f : 1f;
+            image.color = color;
+        }
+    }
+        
+    private Image image {
+        get { return GetComponent<Image>(); }
+    }
+    private Sprite sprite {
+        get { return image.sprite; }
+        set { image.sprite = value; }
     }
     private Note _note;
     public Note note {
@@ -19,10 +30,10 @@ public class NoteObject : MonoBehaviour {
         set {
             _note = value;
             switch (_note.dir) {
-                case Note.Dir.UP: image = spriteUp; break;
-                case Note.Dir.DOWN: image = spriteDown; break;
-                case Note.Dir.LEFT: image = spriteLeft; break;
-                case Note.Dir.RIGHT: image = spriteRight; break;
+                case Note.Dir.UP: sprite = spriteUp; break;
+                case Note.Dir.DOWN: sprite = spriteDown; break;
+                case Note.Dir.LEFT: sprite = spriteLeft; break;
+                case Note.Dir.RIGHT: sprite = spriteRight; break;
             }
         }
     }

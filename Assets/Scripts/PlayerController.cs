@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -16,7 +17,14 @@ public class PlayerController : MonoBehaviour
     // False = Left, True = Right
     private bool direction;
     private int healthPoints;
-	private int instrument;
+    private int _instrument = 0;
+	private int instrument {
+        get { return _instrument; }
+        set {
+            _instrument = value;
+            OnInstrumentSwitch(_instrument);
+        }
+    }
 
     // Animations
     private Animator animator;
@@ -38,6 +46,8 @@ public class PlayerController : MonoBehaviour
 
     // Assign the wave object
     public GameObject wave;
+    
+    public event EventHandler<InstrumentEvent> InstrumentSwitch;
 
     // Start is called before the first frame update
     void Start()
@@ -92,15 +102,14 @@ public class PlayerController : MonoBehaviour
         // Space changes the instrument into the next one
         if (Input.GetKeyDown(instrumentNext))
         {
-			++instrument;
-			if (instrument >= track.CountInstruments) instrument = 0;
+            instrument = (instrument + 1) % track.CountInstruments;
             animator.runtimeAnimatorController = animatorControllers[instrument];
         }
 
 		if (Input.GetKeyDown(instrumentPrev))
 		{
-			--instrument;
-			if (instrument < 0) instrument = track.CountInstruments -1;
+            if (instrument == 0) instrument = track.CountInstruments - 1;
+            else instrument = instrument - 1;
             animator.runtimeAnimatorController = animatorControllers[instrument];
 		}
 
@@ -149,4 +158,17 @@ public class PlayerController : MonoBehaviour
         healthPoints -= damage;
     }
 
+    void OnInstrumentSwitch(int instrument) {
+        EventHandler<InstrumentEvent> handler = InstrumentSwitch;
+        if (handler != null) handler(this, new InstrumentEvent(instrument));
+        Debug.Log("Player switched instrument to " + instrument);
+    }
+}
+
+public class InstrumentEvent : EventArgs {
+    public int instrument;
+    
+    public InstrumentEvent(int instrument) {
+        this.instrument = instrument;
+    }
 }
