@@ -75,7 +75,6 @@ public class PlayerController : MonoBehaviour
             {
                 // Change sprite to face left
                 gameObject.transform.localScale = new Vector3(3, 3, 1);
-                Debug.Log("Facing left");
                 direction = false;
             }
         }
@@ -86,7 +85,6 @@ public class PlayerController : MonoBehaviour
             {
                 // Change sprite to face right 
                 gameObject.transform.localScale = new Vector3(-3, 3, 1);
-                Debug.Log("Facing right");
                 direction = true;
             }
         }
@@ -97,7 +95,6 @@ public class PlayerController : MonoBehaviour
 			++instrument;
 			if (instrument >= track.CountInstruments) instrument = 0;
             animator.runtimeAnimatorController = animatorControllers[instrument];
-            Debug.Log("Switched to instrument " + instrument);
         }
 
 		if (Input.GetKeyDown(instrumentPrev))
@@ -105,7 +102,6 @@ public class PlayerController : MonoBehaviour
 			--instrument;
 			if (instrument < 0) instrument = track.CountInstruments -1;
             animator.runtimeAnimatorController = animatorControllers[instrument];
-            Debug.Log("Switched to instrument " + instrument);
 		}
 
 		// try to play the note
