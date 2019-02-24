@@ -187,17 +187,17 @@ PrefabInstance:
     - target: {fileID: 5627092176707902007, guid: cbd0ec591d4c83c40bfe9afc3e180c05,
         type: 3}
       propertyPath: spawnRedThreshold
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5627092176707902007, guid: cbd0ec591d4c83c40bfe9afc3e180c05,
         type: 3}
       propertyPath: spawnBlueThreshold
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5627092176707902007, guid: cbd0ec591d4c83c40bfe9afc3e180c05,
         type: 3}
       propertyPath: spawnGreenThreshold
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbd0ec591d4c83c40bfe9afc3e180c05, type: 3}
@@ -212,6 +212,7 @@ GameObject:
   - component: {fileID: 304683600}
   - component: {fileID: 304683599}
   - component: {fileID: 304683598}
+  - component: {fileID: 304683601}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -283,6 +284,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &304683601
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 304683597}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5240538826c5f21f1a19caaa699614f6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aspect: {x: 16, y: 10}
+  size: 10
+  lockWidth: 1
 --- !u!1 &393061167
 GameObject:
   m_ObjectHideFlags: 0
@@ -350,8 +366,8 @@ Canvas:
   m_GameObject: {fileID: 393061167}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 304683599}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -681,17 +697,17 @@ PrefabInstance:
         type: 3}
       propertyPath: musicTexts.Array.data[0]
       value: 
-      objectReference: {fileID: 4900000, guid: feb135c4d61b02d48afa8a79405f4fd7, type: 3}
+      objectReference: {fileID: 4900000, guid: 1188e60c225855ec4bd4ead5c8ae3a02, type: 3}
     - target: {fileID: 6992588039756804628, guid: b734f3ebbba3a09418809a56612bb495,
         type: 3}
       propertyPath: musicTexts.Array.data[2]
       value: 
-      objectReference: {fileID: 4900000, guid: b3ca2de7f08207742a2b4a263c94ac47, type: 3}
+      objectReference: {fileID: 4900000, guid: feb135c4d61b02d48afa8a79405f4fd7, type: 3}
     - target: {fileID: 6992588039756804628, guid: b734f3ebbba3a09418809a56612bb495,
         type: 3}
       propertyPath: musicTexts.Array.data[1]
       value: 
-      objectReference: {fileID: 4900000, guid: b0f2df91b933dbd45847d5541e5323ea, type: 3}
+      objectReference: {fileID: 4900000, guid: b3ca2de7f08207742a2b4a263c94ac47, type: 3}
     - target: {fileID: 6992588039756804629, guid: b734f3ebbba3a09418809a56612bb495,
         type: 3}
       propertyPath: player
@@ -794,11 +810,6 @@ PrefabInstance:
       propertyPath: track
       value: 
       objectReference: {fileID: 734167661}
-    - target: {fileID: 7114415025954631149, guid: ce0c3a22f44bd3041be98ac624399a95,
-        type: 3}
-      propertyPath: max_health
-      value: 20
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce0c3a22f44bd3041be98ac624399a95, type: 3}
 --- !u!114 &1938692170 stripped
@@ -920,17 +931,17 @@ PrefabInstance:
     - target: {fileID: 5627092176707902007, guid: cbd0ec591d4c83c40bfe9afc3e180c05,
         type: 3}
       propertyPath: spawnRedThreshold
-      value: 3
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 5627092176707902007, guid: cbd0ec591d4c83c40bfe9afc3e180c05,
         type: 3}
       propertyPath: spawnBlueThreshold
-      value: 1
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 5627092176707902007, guid: cbd0ec591d4c83c40bfe9afc3e180c05,
         type: 3}
       propertyPath: spawnGreenThreshold
-      value: 2
+      value: 4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cbd0ec591d4c83c40bfe9afc3e180c05, type: 3}

@@ -142,9 +142,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fb14bf7acfa94844cacdc775f5a553d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_health: 2
-  speed: 3
-  monster_position: {x: 0, y: 0}
+  max_health: 6
+  speed: 1
   wait_time: 2
   playerDamage: 1
   normalAnimationController: {fileID: 9100000, guid: e0a5573bb8217ad4497d85256505b41f,

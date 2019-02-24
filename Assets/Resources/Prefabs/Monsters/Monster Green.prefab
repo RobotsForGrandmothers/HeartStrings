@@ -221,8 +221,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3dab24495320fe041ba8e650fe113ae0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  max_health: 3
-  speed: 2
+  max_health: 6
+  speed: 1
   wait_time: 2
   playerDamage: 1
   normalAnimationController: {fileID: 9100000, guid: 646d5396d0634c94480bbe5b118a25a4,
