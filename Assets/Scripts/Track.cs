@@ -36,7 +36,7 @@ public class Track : MonoBehaviour {
             noteIterators.Add(it);
             windowNotes.Add(new Queue<Note>());
         }
-        
+
         audio.Play();
     }
     
@@ -45,7 +45,7 @@ public class Track : MonoBehaviour {
             var it = noteIterators[i];
             Note note = it.Current;
           
-            while (note != null && (Time.time - note.time + windowWidth > 0)) {
+            while (note != null && (audio.time - note.time + windowWidth > 0)) {
                 OnEnterWindow(note);
                 it.MoveNext();
                 note = it.Current;
